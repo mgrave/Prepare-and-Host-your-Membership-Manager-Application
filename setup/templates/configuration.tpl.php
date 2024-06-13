@@ -1,3 +1,32 @@
+<?php
+// Función para cargar variables de entorno desde el archivo .env
+function loadEnv($path)
+{
+    if (!file_exists($path)) {
+        throw new Exception("El archivo .env no existe en la ruta especificada: $path");
+    }
+
+    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        if (strpos(trim($line), '#') === 0) {
+            continue;
+        }
+        list($name, $value) = explode('=', $line, 2);
+        $_ENV[$name] = trim($value);
+    }
+}
+
+// Cargar variables de entorno desde el archivo .env en /var/www/html/
+loadEnv('/var/www/html/.env');
+
+// Asegurarse de que la función sanitize está disponible
+if (!function_exists('sanitize')) {
+    function sanitize($data) {
+        return htmlspecialchars(stripslashes(trim($data)));
+    }
+}
+?>
+
 <form action="setup.php?step=2" method="post">
   <div id="inner">
     <aside>
@@ -11,21 +40,21 @@
       <table class="data forms">
         <tr>
           <td style="width:40%">MySQL Hostname :</td>
-          <td><input type="text" name="dbhost" value="<?php echo isset($_POST['dbhost']) ? sanitize($_POST['dbhost']) : 'localhost'; ?>" id="t1">
+          <td><input type="text" name="dbhost" value="<?php echo isset($_POST['dbhost']) ? sanitize($_POST['dbhost']) : $_ENV['MYSQL_HOST']; ?>" id="t1">
             <span class="err" id="err1">Please input correct MySQL hostname.</span></td>
         </tr>
         <tr>
           <td>MySQL User Name:</td>
-          <td><input type="text" name="dbuser"  value="<?php echo isset($_POST['dbuser']) ? sanitize($_POST['dbuser']) : ''; ?>" id="t2">
+          <td><input type="text" name="dbuser"  value="<?php echo isset($_POST['dbuser']) ? sanitize($_POST['dbuser']) : $_ENV['MYSQL_USER']; ?>" id="t2">
             <span class="err" id="err2">Please input correct MySQL username.</span></td>
         </tr>
         <tr>
           <td>MySQL Password:</td>
-          <td><input type="password" name="dbpwd"></td>
+          <td><input type="password" name="dbpwd" value="<?php echo isset($_POST['dbpwd']) ? sanitize($_POST['dbpwd']) : $_ENV['MYSQL_PASSWORD']; ?>"></td>
         </tr>
         <tr>
           <td>MySQL Database Name:</td>
-          <td><input type="text" name="dbname" value="<?php echo isset($_POST['dbname']) ? sanitize($_POST['dbname']) : ''; ?>" id="t3">
+          <td><input type="text" name="dbname" value="<?php echo isset($_POST['dbname']) ? sanitize($_POST['dbname']) : $_ENV['MYSQL_DATABASE']; ?>" id="t3">
             <span class="err" id="err3">Please input correct database name.</span></td>
         </tr>
       </table>
@@ -54,12 +83,12 @@
       <table class="data forms">
         <tr>
           <td style="width:40%">Admin Username:</td>
-          <td><input type="text" name="admin_username" value="<?php echo isset($_POST['admin_username']) ? sanitize($_POST['admin_username']) : 'admin'; ?>" id="t5">
+          <td><input type="text" name="admin_username" value="<?php echo isset($_POST['admin_username']) ? sanitize($_POST['admin_username']) : $_ENV['ADMIN_USERNAME']; ?>" id="t5">
             <span class="err" id="err5">Please input correct admin username.</span></td>
         </tr>
         <tr>
           <td>Temp Password:</td>
-          <td><input type="text" name="pass" value="pass1234" disabled></td>
+          <td><input type="text" name="pass" value="<?php echo $_ENV['ADMIN_PASSWORD']; ?>" disabled></td>
         </tr>
       </table>
     </main>
