@@ -86,4 +86,4 @@ Si hubo un problema al crear el archivo de configuración, DEBES guardar el arch
 
 Ahora DEBES eliminar por completo el directorio 'setup' de tu servidor. Por favor, por razones de seguridad, cambia los permisos de tu directorio /lib/ a 0755.
 
-Finalmente logueate con 
+Finalmente logueate con admin:pass1234
