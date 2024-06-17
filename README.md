@@ -6,9 +6,7 @@
 
 ## Paso 1: Ejecutar el Contenedor Docker
     
-	```bash
     docker-compose up -d
-    ```
 
 ## Paso 4: Verificar el Funcionamiento
 
@@ -23,24 +21,6 @@ Logueate con admin:pass1234 y cambia la contraseña
 ## Paso 6: Elimina el directorio Setup
 
 Ahora DEBES eliminar por completo el directorio 'setup' de tu servidor. Por favor, por razones de seguridad, cambia los permisos de tu directorio /lib/ a 0755.
-
-## Paso 7: Acceso al Contenedor (Opcional)
-
-Si necesitas acceder al contenedor para realizar tareas de administración o depuración, puedes usar el siguiente comando:
-
-```bash
-docker exec -it nombre_de_tu_contenedor /bin/bash
-
-
-DATABASE
-localhost: mmadb
-username:usermma
-password:passmma
-database:dbmma
-
-
-NOTA FINAL
-
 
 
 
