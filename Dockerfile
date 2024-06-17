@@ -27,7 +27,8 @@ RUN chown -R webuser:webuser /var/www/html/
 
 # Dar permisos 777 a las carpetas especificadas
 RUN chmod -R 777 /var/www/html/uploads/ \
-    && chmod -R 777 /var/www/html/view/admin/cache/ \
+    && chmod -R 777 /var/www/html/lib/ \
+	&& chmod -R 777 /var/www/html/view/admin/cache/ \
     && chmod -R 777 /var/www/html/view/front/cache/
 
 # Exponer el puerto 80

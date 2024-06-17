@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: mma_pro
     ports:
-      - "80:80"
+      - "8000:80"
     volumes:
       - .:/var/www/html
     depends_on:
@@ -28,6 +28,22 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
+    networks:
+      - app_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mma_db
+      PMA_USER: ${MYSQL_USER}
+      PMA_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
     networks:
       - app_network
 
