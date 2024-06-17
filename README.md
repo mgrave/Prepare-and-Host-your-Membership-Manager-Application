@@ -22,6 +22,9 @@ Logueate con admin:pass1234 y cambia la contraseña
 
 Ahora DEBES eliminar por completo el directorio 'setup' de tu servidor. Por favor, por razones de seguridad, cambia los permisos de tu directorio /lib/ a 0755.
 
+## Paso 7: Inserta la data de ejemplo
+
+Ingresa a setup/sql/sampledata.sql e inserta la data en http://localhost:8080/
 
 
 
